@@ -1,0 +1,19 @@
+{
+  "name": "inft-2202-lab",
+  "version": "1.0.0",
+  "description": "Repository to store all lab applications in Webdeveloptment Css",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daCruzNobre/inft-2202-lab.git"
+  },
+  "author": "João Pedro da Cruz Nobre",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/daCruzNobre/inft-2202-lab/issues"
+  },
+  "homepage": "https://github.com/daCruzNobre/inft-2202-lab#readme"
+}
