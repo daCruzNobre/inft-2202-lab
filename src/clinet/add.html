@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">  
+  <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">  
+  <title>Add</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary justify-content-center" data-bs-theme="dark">
+    <a class="navbar-brand" href="index.html" style="padding-left: 15px;"> Zoo</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="container-fluid">
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-link" href="index.html">Home</a>
+          <a class="nav-link active" aria-current="page" href="add.html">Add Animals</a>
+          <a class="nav-link" href="list.html">Show Animals</a>
+          <a class="nav-link" href="contact.html">Contact</a>
+          <a class="nav-link" href="about.html">About</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <div class="container-fluid mt-1">
+    <h1 class="heading h2 text-center">Add New Animal</h1>
+  </div>  
+    <div class="container-fluid mb-3 pb-5">
+      <form class="addAnimalForm" action="" method="POST">
+        <div class="mb-3">
+          <label for="NameInput" class="form-label">Name</label>
+          <input type="text" class="form-control" id="NameInput" name="animalNameInput" placeholder="">
+          <p class="error text-danger d-none"></p>
+        </div>
+        <div class="mb-3">
+          <label for="species" class="form-label">Species</label>
+          <input type="text" class="form-control" id="species" name="speciesInput" placeholder="">
+          <p class="error text-danger d-none"></p>
+        </div>
+        <div class="mb-3">
+          <label for="breed" class="form-label">Breed</label>
+          <input type="text" class="form-control" id="breed" name="breedInput" placeholder="">
+          <p class="error text-danger d-none"></p>
+        </div>
+        <div class="mb-3">
+          <label for="nLegs" class="form-label">Number of legs</label>
+          <input type="text" class="form-control" id="nLegs" name="numberLegs" placeholder="">
+          <p class="error text-danger d-none"></p>
+        </div>
+        <div class="mb-3">
+          <label for="nEyes" class="form-label">Number of Eyes </label>
+          <input type="text" class="form-control" id="nEyes" name="numberEyes" placeholder="">
+          <p class="error text-danger d-none"></p>
+        </div>
+        <div class="mberror-3">
+          <label for="sound" class="form-label">Sound</label>
+          <input type="text" class="form-control" id="sound" name="soundInput">
+          <p class="error text-danger d-none"></p>
+        </div>
+        <div class="mb-3">
+          <button type="submit" class="submitBtn btn btn-primary mt-3 mb-3">Submit</button>
+        </div>
+      </form>
+    </div>
+  
+  <footer class="bg-body-tertiary text-center text-lg-start fixed-bottom">
+    <div class="text-center p-3 text-bg-dark">
+      © 2024 Copyright <br> João Pedro da Cruz Nobre, inc
+    </div>
+  </footer>
+  <script type="module" src="app/add.js"></script>
+  <script type="module" src="app/edit.js"></script>
+  <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+</body>
+</html>
