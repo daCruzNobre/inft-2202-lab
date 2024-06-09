@@ -48,7 +48,7 @@ export function validateAnimalForm(addAnimalForm){
         errorParagraph[5].textContent = "Please, enter a valid sound";
         errorParagraph[5].classList.remove("d-none");
         isValid = false;
-    };
+    };    
     
     return isValid;
 }
