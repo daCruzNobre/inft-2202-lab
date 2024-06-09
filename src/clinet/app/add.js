@@ -1,5 +1,5 @@
-import { getAnimals } from "./animal.service.js";
-import { saveAnimal } from "./animal.service.js";
+import { getAnimals } from "./tShirt.service.js";
+import { saveAnimal } from "./tShirt.service.js";
 
 
 

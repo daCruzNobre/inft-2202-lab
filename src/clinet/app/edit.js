@@ -1,5 +1,5 @@
 // Import methods from animal.service.js and add.js
-import { findAnimal, updateAnimal } from "./animal.service.js";
+import { findAnimal, updateAnimal } from "./tShirt.service.js";
 import { validateAnimalForm } from "./add.js";
 
 // Look in the URL to see if there is a name parameter

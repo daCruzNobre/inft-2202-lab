@@ -1,4 +1,4 @@
-import { getAnimals, updateAnimal, deleteAnimal, findAnimal } from "./animal.service.js";
+import { getAnimals, updateAnimal, deleteAnimal, findAnimal } from "./tShirt.service.js";
 
 // get a reference to the message box
 const messageBox = document.querySelector("#empty-message");
