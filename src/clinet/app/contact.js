@@ -3,20 +3,23 @@ const errorParagraph = document.querySelectorAll(".error")
 
 function validateContactForm(contactForm){
     let isValid = true;  
-    // validate the values in each form
-    // search for animals with the same name in the array
-   
-    if(typeof contactForm.nameInput.value !== 'string'){
+    // validate the values in the form
+    //regex to match look if there is number in the array
+    const namePatterm = /^[A-Za-z\s]+$/;
+    if(!namePatterm.test(contactForm.nameInput.value.trim())){
         errorParagraph[0].textContent = "Please, enter a valid name";
         errorParagraph[0].classList.remove("d-none");
         isValid = false;
-    };
-    if( isNaN(Number(contactForm.phoneNumberInput.value))){
+    }else{
+        errorParagraph[0].classList.add("d-none");    
+    }; 
+    if(isNaN(Number(contactForm.phoneNumberInput.value))){
         errorParagraph[1].textContent = "Please, enter a phone number";
         errorParagraph[1].classList.remove("d-none");
         isValid = false;
-    };  
-    
+    }else{
+        errorParagraph[1].classList.add("d-none");
+    };
     
     return isValid;
 }

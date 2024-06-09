@@ -1,85 +1,76 @@
-import { getAnimals } from "./tShirt.service.js";
-import { saveAnimal } from "./tShirt.service.js";
+import { getProducts, saveProduct } from "./product.service.js";
 
-
-
-const addAnimalForm = document.querySelector(".addAnimalForm");
-const errorParagraph = document.querySelectorAll(".error");
+const addProductForm = document.querySelector(".addProductForm");
+const errorParagraphs = document.querySelectorAll(".error");
 const title = document.querySelector("h1");
 let param = new URL(document.location).searchParams;
 let name = param.get("name");
 
-if (!name){
-    addAnimalForm.addEventListener("submit", submitAnimalForm)
+if (!name) {
+    addProductForm.addEventListener("submit", submitProductForm);
 }
 
-export function validateAnimalForm(addAnimalForm){
-    let isValid = true;  
-    // validate the values in each form
-    // search for animals with the same name in the array
-   
-    if(addAnimalForm.animalNameInput.value === "" || addAnimalForm.animalNameInput.value === null){
-        errorParagraph[0].textContent = "Please, enter a valid name";
-        errorParagraph[0].classList.remove("d-none");
+export function validateProductForm(addProductForm) {
+    let isValid = true;
+
+    if (addProductForm.NameInput.value.trim() === "") {
+        errorParagraphs[0].textContent = "Please, enter a valid name";
+        errorParagraphs[0].classList.remove("d-none");
         isValid = false;
-    };
-    if(addAnimalForm.speciesInput.value === "" || addAnimalForm.speciesInput.value === null){
-        errorParagraph[1].textContent = "Please, enter a valid species";
-        errorParagraph[1].classList.remove("d-none");
+    } else {
+        errorParagraphs[0].classList.add("d-none");
+    }
+
+    if (addProductForm.typeInput.value.trim() === "") {
+        errorParagraphs[1].textContent = "Please, enter a valid type";
+        errorParagraphs[1].classList.remove("d-none");
         isValid = false;
-    };
-    if(addAnimalForm.breedInput.value === "" || addAnimalForm.breedInput.value === null){
-        errorParagraph[2].textContent = "Please, enter a valid breed";
-        errorParagraph[2].classList.remove("d-none");
+    } else {
+        errorParagraphs[1].classList.add("d-none");
+    }
+
+    if (addProductForm.costInput.value.trim() === "" || isNaN(Number(addProductForm.costInput.value)) || Number(addProductForm.costInput.value) < 0) {
+        errorParagraphs[2].textContent = "Please, enter a valid cost";
+        errorParagraphs[2].classList.remove("d-none");
         isValid = false;
-    };
-    // check if the value is numeric -- check if the result conversion from string to number is NaN
-    if(addAnimalForm.numberLegs.value === "" || isNaN(Number(addAnimalForm.numberLegs.value)) || addAnimalForm.numberLegs.value < 0){ 
-        errorParagraph[3].textContent = "Please, enter a valid number of legs";
-        errorParagraph[3].classList.remove("d-none");
+    } else {
+        errorParagraphs[2].classList.add("d-none");
+    }
+
+    if (addProductForm.descriptionInput.value.trim() === "") {
+        errorParagraphs[3].textContent = "Please, enter a product description";
+        errorParagraphs[3].classList.remove("d-none");
         isValid = false;
-    };
-    if(addAnimalForm.numberEyes.value === "" || isNaN(Number(addAnimalForm.numberEyes.value)) || addAnimalForm.numberEyes.value < 0){
-        errorParagraph[4].textContent = "Please, enter a valid number of eyes";
-        errorParagraph[4].classList.remove("d-none");
-        isValid = false;
-    };    
-    if(addAnimalForm.soundInput.value === "" || addAnimalForm.soundInput.value === null){
-        errorParagraph[5].textContent = "Please, enter a valid sound";
-        errorParagraph[5].classList.remove("d-none");
-        isValid = false;
-    };    
-    
+    } else {
+        errorParagraphs[3].classList.add("d-none");
+    }
+
     return isValid;
 }
 
-
-function submitAnimalForm(event) {
+function submitProductForm(event) {
     event.preventDefault();
-    let valid = validateAnimalForm(addAnimalForm);
+    let valid = validateProductForm(addProductForm);
     if (valid) {
-        // Create a new animal object from form info
-        const newAnimal = {
-            name: addAnimalForm.animalNameInput.value,
-            species: addAnimalForm.speciesInput.value,
-            breed: addAnimalForm.breedInput.value,
-            numberLegs: addAnimalForm.numberLegs.value,
-            numberEyes: addAnimalForm.numberEyes.value,
-            sound: addAnimalForm.soundInput.value,
+        const newProduct = {
+            name: addProductForm.NameInput.value.trim(),
+            type: addProductForm.typeInput.value.trim(),
+            cost: addProductForm.costInput.value.trim(),
+            description: addProductForm.descriptionInput.value.trim(),
         };
-        let validName = saveAnimal(newAnimal)
-        if(validName){
+
+        let validName = saveProduct(newProduct);
+        if (validName) {
             event.target.reset();
-        }else{
-            console.log("Animal with that name already exists");
-            errorParagraph[0].textContent = "Animal with that name already exists";
-            errorParagraph[0].classList.remove("d-none");
-        };
+        } else {
+            console.log("Product with that name already exists");
+            errorParagraphs[0].textContent = "Product with that name already exists";
+            errorParagraphs[0].classList.remove("d-none");
+        }
     } else {
-        // if its not valid, stop submission and print errors
         const errorPara = document.createElement('p');
         errorPara.classList.add("text-danger");
         errorPara.textContent = "Oops, something went wrong...";
         title.parentNode.insertBefore(errorPara, title.nextSibling);
     }
-};
+}

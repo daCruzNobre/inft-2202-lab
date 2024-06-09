@@ -8,7 +8,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary justify-content-center" data-bs-theme="dark">
-        <a class="navbar-brand" href="index.html" style="padding-left: 15px;"> T-Store</a>
+        <a class="navbar-brand" href="index.html" style="padding-left: 15px;"> SellYourStuff</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -16,8 +16,8 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <div class="navbar-nav">
                     <a class="nav-link" href="index.html">Home</a>
-                    <a class="nav-link" href="add.html">Add Animals</a>
-                    <a class="nav-link" href="list.html">Show Animals</a>
+                    <a class="nav-link" href="add.html">Add Products</a>
+                    <a class="nav-link" href="list.html">Show Products</a>
                     <a class="nav-link active" aria-current="page" href="contact.html">Contact</a>
                     <a class="nav-link" href="about.html">About</a>
                 </div>
@@ -30,22 +30,22 @@
             <div class="mb-3">
                 <label for="nameInput" class="form-label">Name</label>
                 <input type="text" class="form-control" id="nameInput" name="nameInput" required>
-                <p class="error"></p>
+                <p class="error alert alert-danger d-none"></p>
             </div>
             <div class="mb-3">
                 <label for="phoneNumberInput" class="form-label">Phone Number</label>
                 <input type="tel" class="form-control" id="phoneNumberInput" name="phoneNumberInput"   required>
-                <p class="error"></p>
+                <p class="error alert alert-danger d-none"></p>
             </div>
             <div class="mb-3">
                 <label for="emailInput" class="form-label">Email address</label>
                 <input type="email" class="form-control" id="emailInput" name="emailInput" placeholder="name@example.com" >
-                <p class="error"></p>
+                <p class="error alert alert-danger d-none"></p>
             </div>
             <div class="mb-3">
                 <label for="messageInput" class="form-label">Your Message:</label>
                 <textarea class="form-control" id="messageInput" name="messageInput" rows="3" required></textarea>
-                <p class="error"></p>
+                <p class="error alert alert-danger d-none"></p>
             </div>
             <div class="mb-3">
                 <button type="submit" class="submitBtn btn btn-primary mt-3 mb-3">Submit</button>
