@@ -5,12 +5,12 @@ import { validateProductForm } from "./add.js";
 // Look in the URL to see if there is a name parameter
 const param = new URL(document.location).searchParams;
 const name = param.get("name");
-const title = document.querySelector("title"); 
-const heading = document.querySelector(".heading"); 
+const title = document.querySelector("title");
+const heading = document.querySelector(".heading");
 const productForm = document.querySelector(".addProductForm");
 const submitBtn = document.querySelector(".submitBtn");
 
-// If so, call setupEditForm();
+// If there is a name parameter, call setupEditForm()
 if (name) {
     setupEditForm();
 }
@@ -20,11 +20,11 @@ function setupEditForm() {
     title.textContent = "Edit";
     let product = findProduct(name);
     productForm.NameInput.value = product.name;
-    productForm.typeInput.value = product.type;
     productForm.costInput.value = product.cost;
+    productForm.stockInput.value = product.stock;
     productForm.descriptionInput.value = product.description;
-    submitBtn.textContent = "Edit Product";
-   
+    submitBtn.textContent = "Update Product";
+
     // Set name to disabled
     productForm.NameInput.disabled = true;
 
@@ -36,8 +36,8 @@ function submitEditForm(e) {
     if (validateProductForm(productForm)) {
         const product = {
             name: productForm.NameInput.value,
-            type: productForm.typeInput.value,
-            cost: productForm.costInput.value,
+            cost: parseFloat(productForm.costInput.value).toFixed(2),
+            stock: parseInt(productForm.stockInput.value, 10),
             description: productForm.descriptionInput.value,
         };
         console.log(updateProduct(product));
