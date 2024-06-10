@@ -1,126 +1,122 @@
 // Import methods from product.service.js
-import { getProducts, updateProduct, deleteProduct, findProduct } from "./product.service.js";
+import { getProducts, deleteProduct } from "./product.service.js";
 
 // Get a reference to the message box
 const messageBox = document.querySelector("#empty-message");
-// Get a reference to the product table
-const productTable = document.querySelector("#product-list");
-const tbody = document.querySelector("tbody");
-const pagination = document.querySelector(".pagination");
+// Get a reference to the product group
+const productGroup = document.querySelector("#product-group");
 
 // Get a list of products from your service
 const productList = getProducts();
-const perPage = 5;  // Number of entries per page
-let entriesAmount = productList.length;
-let currentPage = 1;
 
-drawProductTable(productList);
-
-// Initiate tooltips
-const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+drawProductGroup(productList);
 
 // Grab a reference to the modal
 const modalDelete = document.querySelector("#modalDelete");
 const exampleModal = new bootstrap.Modal('#exampleModal');
 
-function drawProductTable(products) {
-    tbody.replaceChildren(); // Delete all content from table body    
+function drawProductGroup(products) {
+    productGroup.replaceChildren(); // Delete all content from product group
+    
     // If there are no products in the list
     if (products === undefined || products.length === 0) {
         messageBox.classList.remove("d-none");
-        productTable.classList.add("d-none");
+        productGroup.classList.add("d-none");
     } else {
         messageBox.classList.add("d-none");
-        productTable.classList.remove("d-none");
+        productGroup.classList.remove("d-none");
     }
+    
     // For every product in the list
     products.forEach(product => {
-        // Add a new row to the table element
-        let newRow = document.createElement("tr");
+        // Create a new Card Element
+        let card = document.createElement("div");
+        let img = document.createElement("img");
+        let cardBody = document.createElement("div");
+        let cardFooter = document.createElement("div");
+        let title = document.createElement("h5");
+        let description = document.createElement("p");
+        let list = document.createElement("ul");
+        let cost = document.createElement("li");
+        let type = document.createElement("li");
 
-        // Add a cell for each product property to the new row
-        let newCell1 = document.createElement("td");
-        newCell1.textContent = product.name;
-        newRow.appendChild(newCell1);
+        // Add classes and attributes
+        card.classList.add("card");
+        card.setAttribute("style", "max-width: 17rem");
+        cardBody.classList.add("card-body");
+        card.classList.add("card");
+        cardFooter.classList.add("card-footer");
+        title.classList.add("card-title");
+        description.classList.add("card-text");
+        list.classList.add("list-group", "list-group-flush");
+        cost.classList.add("list-group-item");
+        type.classList.add("list-group-item");
+        img.classList.add("card-img-top");
+        img.setAttribute("src", "./img/bag-1455765_640.jpg");
+        img.setAttribute("alt", "Product image");
+        img.setAttribute("style", "width: 16rem");
+        
+        // Set the contents
+        title.textContent = product.name;
+        description.textContent = product.description;
+        cost.textContent = `Cost: $${product.cost}`;
+        type.textContent = `Type: ${product.type}`;
 
-        let newCell2 = document.createElement("td");
-        newCell2.textContent = product.type;
-        newRow.appendChild(newCell2);
+        // Assemble the card
+        card.appendChild(img);
+        card.appendChild(cardBody);
+        card.appendChild(list);
+        card.appendChild(cardFooter);
 
-        let newCell3 = document.createElement("td");
-        newCell3.textContent = product.cost;
-        newRow.appendChild(newCell3);
+        cardBody.appendChild(title);
+        cardBody.appendChild(description);
 
-        let newCell4 = document.createElement("td");
-        newCell4.textContent = product.description;
-        newRow.appendChild(newCell4);
-
-        // Add an extra cell to hold the buttons
-        let newCell5 = document.createElement("td");
+        list.appendChild(type);
+        list.appendChild(cost);
 
         // Create a delete button
-        let newButton = document.createElement("span");
-        newButton.setAttribute("type", "button");
-        let icon = document.createElement("i"); // Create icon
-        icon.classList.add("fa-solid", "fa-trash");
-        // Set icon tooltips
-        icon.setAttribute("data-bs-toggle", "tooltip");
-        icon.setAttribute("data-bs-placement", "top");
-        icon.setAttribute("data-bs-custom-class", "custom-tooltip");
-        icon.setAttribute("data-bs-title", "Delete Product");
-        // Bind modal to button
-        newButton.setAttribute("data-bs-toggle", "modal");
-        newButton.setAttribute("data-bs-target", "#exampleModal");
-        // Add some classes to it
-        newButton.classList.add("btn", "btn-danger", "my-1", "mx-1");
-        newButton.appendChild(icon);
-        // Add an event listener to it
-        newButton.addEventListener("click", (event) => {
+        let deleteButton = document.createElement("button");
+        let deleteIcon = document.createElement("i");
+        deleteIcon.classList.add("fa-solid", "fa-trash");
+        deleteButton.classList.add("btn", "btn-danger", "my-1", "mx-1");
+        deleteButton.appendChild(deleteIcon);
+        deleteButton.setAttribute("data-bs-toggle", "modal");
+        deleteButton.setAttribute("data-bs-target", "#exampleModal");
+
+        deleteButton.addEventListener("click", (event) => {
             event.preventDefault();
             modalDelete.addEventListener("click", (event) => {
                 event.preventDefault();
                 if (deleteProduct(product.name)) {
                     let newList = getProducts();
-                    drawProductTable(newList);
+                    drawProductGroup(newList);
                     exampleModal.hide();
                 } else {
-                    let newCell6 = document.createElement("td");
-                    newCell6.textContent = "Could not delete";
-                    newRow.appendChild(newCell6);
+                    console.log("Could not delete");
                 }
-            });
+            }, { once: true });
         });
 
-        // Use the reference to the button cell to add the delete button
-        newCell5.appendChild(newButton);
+        // Create an add to cart button
+        let addToCartButton = document.createElement("button");
+        let cartIcon = document.createElement("i");
+        cartIcon.classList.add("fa-solid", "fa-cart-plus");
+        addToCartButton.classList.add("btn", "btn-primary", "my-1", "mx-1");
+        addToCartButton.appendChild(cartIcon);
 
         // Create an edit link
         let editLink = document.createElement("a");
         let editIcon = document.createElement("i");
         editIcon.classList.add("fa-solid", "fa-file-pen");
-        editIcon.setAttribute("data-bs-toggle", "tooltip");
-        editIcon.setAttribute("data-bs-placement", "top");
-        editIcon.setAttribute("data-bs-custom-class", "custom-tooltip");
-        editIcon.setAttribute("data-bs-title", "Edit Product");
-
-        // Add some classes to it (so it looks like a button)
         editLink.classList.add("btn", "btn-primary", "my-1", "mx-1");
-        // Add an icon or some text
         editLink.appendChild(editIcon);
-        // Set the href to point to the add page, add a GET param called name and set the product name
         editLink.href = `../client/add.html?name=${product.name}`;
-        // Use the reference to the button cell to add the edit link
-        newCell5.appendChild(editLink);
 
-        newRow.appendChild(newCell5);
-        tbody.appendChild(newRow);
+        // Append buttons to card footer
+        cardFooter.appendChild(addToCartButton);
+        cardFooter.appendChild(editLink);
+        cardFooter.appendChild(deleteButton);
+
+        productGroup.appendChild(card);
     });
 }
-
-function getPaginatedData(page, perPage, data) {
-    const start = (page - 1) * perPage;
-    return data.slice(start, start + perPage);
-}
-
-

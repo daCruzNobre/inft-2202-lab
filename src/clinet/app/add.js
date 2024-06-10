@@ -13,7 +13,7 @@ if (!name) {
 export function validateProductForm(addProductForm) {
     let isValid = true;
 
-    if (addProductForm.NameInput.value.trim() === "") {
+    if (addProductForm.NameInput.value === "") {
         errorParagraphs[0].textContent = "Please, enter a valid name";
         errorParagraphs[0].classList.remove("d-none");
         isValid = false;
@@ -21,7 +21,7 @@ export function validateProductForm(addProductForm) {
         errorParagraphs[0].classList.add("d-none");
     }
 
-    if (addProductForm.typeInput.value.trim() === "") {
+    if (addProductForm.typeInput.value === "") {
         errorParagraphs[1].textContent = "Please, enter a valid type";
         errorParagraphs[1].classList.remove("d-none");
         isValid = false;
@@ -29,7 +29,7 @@ export function validateProductForm(addProductForm) {
         errorParagraphs[1].classList.add("d-none");
     }
 
-    if (addProductForm.costInput.value.trim() === "" || isNaN(Number(addProductForm.costInput.value)) || Number(addProductForm.costInput.value) < 0) {
+    if (addProductForm.costInput.value === "" || isNaN(Number(addProductForm.costInput.value)) || Number(addProductForm.costInput.value) < 0) {
         errorParagraphs[2].textContent = "Please, enter a valid cost";
         errorParagraphs[2].classList.remove("d-none");
         isValid = false;
@@ -37,7 +37,7 @@ export function validateProductForm(addProductForm) {
         errorParagraphs[2].classList.add("d-none");
     }
 
-    if (addProductForm.descriptionInput.value.trim() === "") {
+    if (addProductForm.descriptionInput.value === "") {
         errorParagraphs[3].textContent = "Please, enter a product description";
         errorParagraphs[3].classList.remove("d-none");
         isValid = false;
