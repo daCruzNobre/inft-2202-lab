@@ -1,4 +1,5 @@
-import { getProducts, saveProduct } from "./product.service.js";
+import { saveProduct } from "./product.service.js";
+import { Product } from "./product.js";
 
 const addProductForm = document.querySelector(".addProductForm");
 const errorParagraphs = document.querySelectorAll(".error");
@@ -21,16 +22,16 @@ export function validateProductForm(addProductForm) {
         errorParagraphs[0].classList.add("d-none");
     }
 
-    if (addProductForm.typeInput.value === "") {
-        errorParagraphs[1].textContent = "Please, enter a valid type";
+    if (addProductForm.costInput.value === "" || isNaN(Number(addProductForm.costInput.value)) || Number(addProductForm.costInput.value) < 0) {
+        errorParagraphs[1].textContent = "Please, enter a valid cost";
         errorParagraphs[1].classList.remove("d-none");
         isValid = false;
     } else {
         errorParagraphs[1].classList.add("d-none");
     }
 
-    if (addProductForm.costInput.value === "" || isNaN(Number(addProductForm.costInput.value)) || Number(addProductForm.costInput.value) < 0) {
-        errorParagraphs[2].textContent = "Please, enter a valid cost";
+    if (addProductForm.stockInput.value === "" || isNaN(Number(addProductForm.stockInput.value)) || Number(addProductForm.stockInput.value) < 0) {
+        errorParagraphs[2].textContent = "Please, enter a valid stock quantity";
         errorParagraphs[2].classList.remove("d-none");
         isValid = false;
     } else {
@@ -52,16 +53,19 @@ function submitProductForm(event) {
     event.preventDefault();
     let valid = validateProductForm(addProductForm);
     if (valid) {
-        const newProduct = {
-            name: addProductForm.NameInput.value.trim(),
-            type: addProductForm.typeInput.value.trim(),
-            cost: addProductForm.costInput.value.trim(),
-            description: addProductForm.descriptionInput.value.trim(),
-        };
+        const newProduct = new Product(
+            addProductForm.NameInput.value.trim(),
+            parseFloat(addProductForm.costInput.value.trim()).toFixed(2),
+            parseInt(addProductForm.stockInput.value.trim(), 10),
+            addProductForm.descriptionInput.value.trim()
+        );
+
+        console.log(newProduct);
 
         let validName = saveProduct(newProduct);
         if (validName) {
             event.target.reset();
+            window.location.href = "list.html";
         } else {
             console.log("Product with that name already exists");
             errorParagraphs[0].textContent = "Product with that name already exists";
