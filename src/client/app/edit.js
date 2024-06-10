@@ -7,7 +7,8 @@ const param = new URL(document.location).searchParams;
 const name = param.get("name");
 const title = document.querySelector("title"); 
 const heading = document.querySelector(".heading"); 
-const productForm = document.querySelector(".addProductForm"); 
+const productForm = document.querySelector(".addProductForm");
+const submitBtn = document.querySelector(".submitBtn");
 
 // If so, call setupEditForm();
 if (name) {
@@ -22,6 +23,7 @@ function setupEditForm() {
     productForm.typeInput.value = product.type;
     productForm.costInput.value = product.cost;
     productForm.descriptionInput.value = product.description;
+    submitBtn.textContent = "Edit Product";
    
     // Set name to disabled
     productForm.NameInput.disabled = true;
