@@ -20,7 +20,7 @@ function setupEditForm() {
     title.textContent = "Edit";
     let product = findProduct(name);
     productForm.NameInput.value = product.name;
-    productForm.costInput.value = product.cost;
+    productForm.costInput.value = product.price;
     productForm.stockInput.value = product.stock;
     productForm.descriptionInput.value = product.description;
     submitBtn.textContent = "Update Product";
@@ -36,7 +36,7 @@ function submitEditForm(e) {
     if (validateProductForm(productForm)) {
         const product = {
             name: productForm.NameInput.value,
-            cost: parseFloat(productForm.costInput.value).toFixed(2),
+            price: parseFloat(productForm.costInput.value).toFixed(2),
             stock: parseInt(productForm.stockInput.value, 10),
             description: productForm.descriptionInput.value,
         };
