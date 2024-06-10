@@ -8,7 +8,7 @@ const productGroup = document.querySelector("#product-group");
 
 // Get a list of products from your service
 const productList = getProducts();
-
+console.log(productList);
 drawProductGroup(productList);
 
 // Grab a reference to the modal
@@ -59,8 +59,10 @@ function drawProductGroup(products) {
         // Set the contents
         title.textContent = product.name;
         description.textContent = product.description;
-        cost.textContent = `Cost: $${product.cost}`;
-        type.textContent = `Type: ${product.type}`;
+        console.log(product.price);
+        console.log(product.stock);
+        cost.textContent = `Cost: $${product.price}`;
+        type.textContent = `Stock: ${product.stock}`;
 
         // Assemble the card
         card.appendChild(img);
