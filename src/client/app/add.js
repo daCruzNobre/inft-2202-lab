@@ -1,16 +1,19 @@
 import { saveProduct } from "./product.service.js";
 import { Product } from "./product.js";
 
+// Variable and constants declaration
 const addProductForm = document.querySelector(".addProductForm");
 const errorParagraphs = document.querySelectorAll(".error");
 const title = document.querySelector("h1");
 let param = new URL(document.location).searchParams;
 let name = param.get("name");
 
+// Check if the name param is at the url
 if (!name) {
     addProductForm.addEventListener("submit", submitProductForm);
 }
 
+// Function to validate form
 export function validateProductForm(addProductForm) {
     let isValid = true;
 
@@ -49,6 +52,7 @@ export function validateProductForm(addProductForm) {
     return isValid;
 }
 
+// Function to handle the submit evemt
 function submitProductForm(event) {
     event.preventDefault();
     let valid = validateProductForm(addProductForm);
@@ -58,9 +62,7 @@ function submitProductForm(event) {
             parseFloat(addProductForm.costInput.value.trim()).toFixed(2),
             parseInt(addProductForm.stockInput.value.trim(), 10),
             addProductForm.descriptionInput.value.trim()
-        );
-
-        console.log(newProduct);
+        );        
 
         let validName = saveProduct(newProduct);
         if (validName) {
