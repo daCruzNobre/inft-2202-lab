@@ -1,5 +1,6 @@
 // Import methods from product.service.js and add.js
-import { findProduct, updateProduct } from "./product.service.js";
+import { findProduct, updateProduct } from "./product.service.mock.js";
+// import { findProduct, updateProduct } from "./product.service.js";
 import { validateProductForm } from "./add.js";
 
 // Look in the URL to see if there is a name parameter

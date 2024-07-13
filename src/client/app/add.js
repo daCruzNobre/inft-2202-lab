@@ -1,4 +1,5 @@
-import { saveProduct } from "./product.service.js";
+import { saveProduct } from "./product.service.mock.js";
+// import { saveProduct } from "./product.service.js";
 import { Product } from "./product.js";
 
 // Variable and constants declaration

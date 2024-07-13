@@ -1,13 +1,19 @@
 // Import methods from product.service.js
-import { getProducts, deleteProduct } from "./product.service.js";
+// import { getProducts, deleteProduct } from "./product.service.mock.js";
+import { ProductService as ProductServiceConstructor } from "./product.service.js";
+import { key } from "../../apikey.js";
 
+const host = "https://inft2202.paclan.net/api/products/"
+
+const productService = new ProductServiceConstructor(host, key);
 // Get a reference to the message box
 const messageBox = document.querySelector("#empty-message");
 // Get a reference to the product group
 const productGroup = document.querySelector("#product-group");
 
 // Get a list of products from your service
-const productList = getProducts();
+console.log(productService);
+const productList =  await productService.getProducts();
 console.log(productList);
 drawProductGroup(productList);
 
@@ -87,10 +93,10 @@ function drawProductGroup(products) {
 
         deleteButton.addEventListener("click", (event) => {
             event.preventDefault();
-            modalDelete.addEventListener("click", (event) => {
+            modalDelete.addEventListener("click", async (event) => {
                 event.preventDefault();
                 if (deleteProduct(product.name)) {
-                    let newList = getProducts();
+                    let newList = await productService.getProducts();
                     drawProductGroup(newList);
                     exampleModal.hide();
                 } else {

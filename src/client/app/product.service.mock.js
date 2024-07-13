@@ -1,14 +1,9 @@
 import { Product } from './product.js';
 
-export function ProductService(host, apikey){
-  this.host = host;
-  this.apikey = apikey;
-}
-
 /*
  * Find a product by name
  */
-ProductService.prototype.findProduct = function(productName) {
+export function findProduct(productName) {
   const products = getProducts();
   return products.find(product => product.name.toLowerCase() === productName.toLowerCase());
 }
@@ -16,7 +11,7 @@ ProductService.prototype.findProduct = function(productName) {
 /*
  * Update an existing product
  */
-ProductService.prototype.updateProduct = function(product) {
+export function updateProduct(product) {
   // Get a list of products
   const products = getProducts();
   // Find the index of the product we're trying to update
@@ -37,7 +32,7 @@ ProductService.prototype.updateProduct = function(product) {
 /*
  * Delete a product by name
  */
-ProductService.prototype.deleteProduct = function(productName) {
+export function deleteProduct(productName) {
   // Get a list of products
   const products = getProducts();
   // Find the index of the product we're trying to delete
@@ -58,29 +53,21 @@ ProductService.prototype.deleteProduct = function(productName) {
 /*
  * Get all products
  */
-ProductService.prototype.getProducts = async function() {
-  const url = new URL(this.host);
-  const headers = new Headers({
-    'apikey': this.apikey
-  });
-  const request = new Request(url,{
-    headers,
-    method:'GET'
-  });
-  try {
-    const response = await fetch(request);
-    const data = await response.json();
-    console.log(data.records);
-    return data.records
-  } catch (error) {
-    console.log(error);
+export function getProducts() {
+  let products = localStorage.getItem('products');
+  // Check if there is a products array in the storage
+  if (products) {
+    products = JSON.parse(products);
+  } else {
+    products = [];
   }
+  return products.map(productData => new Product(productData.name, productData.price, productData.stock, productData.description));
 }
 
 /*
  * Save a new product
  */
-ProductService.prototype.saveProduct = function(product) {
+export function saveProduct(product) {
   const products = getProducts();
   if (products.find(p => p.name.toLowerCase() === product.name.toLowerCase())) {
     return false;
