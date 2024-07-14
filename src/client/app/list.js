@@ -17,14 +17,18 @@ const paginationElement = document.querySelector(".pagination");
 // get a reference to the spinner
 const spinner = document.querySelector('.fa-spinner');
 
+// grab a reference to the modal
+const modalDelete = document.querySelector("#modalDelete");
+const exampleModal = new bootstrap.Modal('#exampleModal');
+
 let currentPage = 1;
 let perPage = 5;
 
 // Initialize the page with URL parameters or defaults
 initPage();
 
-const productFInd = await productService.findProduct("66941d40392a14a4f5679ec1");
-console.log(productFInd);
+// const productFInd = await productService.findProduct("66941d40392a14a4f5679ec1");
+// console.log(productFInd);
 async function initPage() {
     const params = new URLSearchParams(window.location.search);
     currentPage = parseInt(params.get('page')) || 1;
@@ -54,7 +58,6 @@ async function fetchAndRenderProducts() {
     } catch (error) {
         spinner.classList.add("d-none");
         messageBox.classList.remove("d-none");
-        messageBox.textContent = `Error: ${error.message}`;
     }
 }
 
@@ -130,12 +133,14 @@ function drawProductGroup(products) {
           event.preventDefault();
           modalDelete.addEventListener("click", async (event) => {
               event.preventDefault();
-              if (await productService.deleteProduct(product.id)) {
-                  let newList = await productService.listProducts(currentPage, perPage);
-                  drawProductGroup(newList);
-                  exampleModal.hide();
+              console.log(product.productId);
+              const responseStatus = await productService.deleteProduct(product.productId);
+              if (responseStatus !== 200 && responseStatus !== 204 ) {
+                throw new Error("Could not delete");
               } else {
-                  console.log("Could not delete");
+                let newList = await productService.getProducts(currentPage, perPage);
+                drawProductGroup(newList);
+                exampleModal.hide();
               }
           }, { once: true });
       });

@@ -73,22 +73,39 @@ ProductService.prototype.updateProduct = async function(productId, product) {
 /*
  * Delete a product by name
  */
-ProductService.prototype.deleteProduct = function(productName) {
-  // Get a list of products
-  const products = getProducts();
-  // Find the index of the product we're trying to delete
-  let productIndex = products.findIndex(product => product.name.toLowerCase() === productName.toLowerCase());
-  // If the product doesn't exist, return false
-  if (productIndex === -1) {
-    return false;
-  } else {
-    // Cut the selected product out of the list
-    products.splice(productIndex, 1);
-    // Put the new list back into storage
-    localStorage.setItem("products", JSON.stringify(products));
-    // Return true if everything is good
-    return true;
-  }
+ProductService.prototype.deleteProduct = async function(productId) {  
+  const url = new URL(`${this.host}${productId}`);
+  console.log(url);        
+    const headers = new Headers({
+        'apikey': this.apikey,
+        'content-type': "application/json",
+    });    
+    const request = new Request(url, {
+        headers,
+        method: 'DELETE',
+    })
+    try {
+        const response = await fetch(request);
+        return response.status;
+    } catch (error) {        
+        console.log(error);
+        return response.status;
+    }
+  // // Get a list of products
+  // const products = getProducts();
+  // // Find the index of the product we're trying to delete
+  // let productIndex = products.findIndex(product => product.name.toLowerCase() === productName.toLowerCase());
+  // // If the product doesn't exist, return false
+  // if (productIndex === -1) {
+  //   return false;
+  // } else {
+  //   // Cut the selected product out of the list
+  //   products.splice(productIndex, 1);
+  //   // Put the new list back into storage
+  //   localStorage.setItem("products", JSON.stringify(products));
+  //   // Return true if everything is good
+  //   return true;
+  // }
 }
 
 /*
