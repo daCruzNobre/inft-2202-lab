@@ -28,11 +28,24 @@
     <div class="container-fluid mt-1">
         <h1 class="heading h2 text-center my-2">Product List</h1>
     </div>
+    <div class="container-fluid  bg-body-tertiary justify-content-right">
+        <a class="float-end btn mb-1 btn-tertiary bg-dark text-white dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Products Per Page
+        </a>    
+        <ul class="dropdown-menu">
+          <li><a class="bg-dark text-white dropdown-item dpItem" href="#">2</a></li>
+          <li><a class="bg-dark text-white dropdown-item dpItem" href="#">5</a></li>
+          <li><a class="bg-dark text-white dropdown-item dpItem" href="#">10</a></li>
+          <li><a class="bg-dark text-white dropdown-item dpItem" href="#">20</a></li>
+        </ul>
+      </div>
+      <div class="container-fluid">
+        <i class="fa-solid fa-spinner fa-spin fa-xl" style="color:black;"></i>
     <div class="container-fluid">
         <div id="empty-message" class="alert alert-danger alert-warning d-none">
             The shop is currently closed.
         </div>
-        <div class="card-group" id="product-group" style="margin-bottom: 100px;"></div>
+        <div class="card-group mb-3" id="product-group"></div>
     </div>
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -51,6 +64,14 @@
             </div>
         </div>
     </div>
+    <div class="justify-content-center container-fluid" style="margin-bottom: 100px;">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#">Previous</a></li>                 
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+          </ul>
+        </nav>
+      </div>
     <footer class="bg-body-tertiary text-center text-lg-start fixed-bottom">       
         <div class="copyright text-center p-3 text-bg-dark">          
         </div>        

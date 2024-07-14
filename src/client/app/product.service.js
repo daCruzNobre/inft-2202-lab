@@ -58,8 +58,11 @@ ProductService.prototype.deleteProduct = function(productName) {
 /*
  * Get all products
  */
-ProductService.prototype.getProducts = async function() {
+ProductService.prototype.getProducts = async function(page=1, perPage=5) {
   const url = new URL(this.host);
+  url.searchParams.append('page', page);
+  url.searchParams.append('perPage', perPage);
+  console.log(url);
   const headers = new Headers({
     'apikey': this.apikey
   });
@@ -70,7 +73,8 @@ ProductService.prototype.getProducts = async function() {
   try {
     const response = await fetch(request);
     const data = await response.json();
-    console.log(data.records);
+    // console.log(data);
+    // console.log(data.records);
     return data.records
   } catch (error) {
     console.log(error);
@@ -89,4 +93,29 @@ ProductService.prototype.saveProduct = function(product) {
   products.push(product);
   localStorage.setItem("products", JSON.stringify(products));
   return true;
+}
+
+/**
+ * Get pagination
+ */
+ProductService.prototype.getPagination = async function(page=1, perPage=5){
+  const url = new URL(this.host);
+  url.searchParams.append('page', page);
+  url.searchParams.append('perPage', perPage);
+  console.log(url);
+  const headers = new Headers({
+    'apikey': this.apikey
+  });
+  const request = new Request(url,{
+    headers,
+    method:'GET'
+  });
+  try {
+    const response = await fetch(request);
+    const data = await response.json();
+    // console.log(data.records);
+    return data.pagination
+  } catch (error) {
+    console.log(error);
+  }
 }
