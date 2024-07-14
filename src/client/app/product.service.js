@@ -11,7 +11,7 @@ export function ProductService(host, apikey){
 ProductService.prototype.findProduct = async function(productId) {
   // console.log(productId);
   const url = new URL(`${this.host}${productId}`);
-  console.log(url);       
+  // console.log(url);       
   const headers = new Headers({
       'apikey': this.apikey,
       'content-type': "application/json",
@@ -34,9 +34,10 @@ ProductService.prototype.findProduct = async function(productId) {
  * Update an existing product
  */
 ProductService.prototype.updateProduct = async function(productId, product) {
-  const url = new URL(`${this.host}${productId}`);           
+  const url = new URL(`${this.host}${productId}`);
+  console.log(url);        
     const headers = new Headers({
-        'apikey': apikey,
+        'apikey': this.apikey,
         'content-type': "application/json",
     });
     
@@ -48,7 +49,7 @@ ProductService.prototype.updateProduct = async function(productId, product) {
     try {
         const response = await fetch(request);
         const data = await response.json();
-        console.log(data.records);
+        console.log(data);
     } catch (error) {        
         console.log(error);
     }

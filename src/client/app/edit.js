@@ -32,6 +32,7 @@ async function setupEditForm() {
     title.textContent = "Edit";
     // let product = findProduct(name);
     let product = await productService.findProduct(productId);
+    let id = product.productId;
     console.log(product);
     productForm.NameInput.value = product.name;
     productForm.costInput.value = product.price;
@@ -42,21 +43,30 @@ async function setupEditForm() {
     // Set name to disabled
     productForm.NameInput.disabled = true;
 
-    productForm.addEventListener("submit", submitEditForm);
+    productForm.addEventListener("submit", async e => await submitEditForm(productId, e));
 }
 
-function submitEditForm(e) {
+async function submitEditForm(productId, e) {
     e.preventDefault();
     if (validateProductForm(productForm)) {
-        const product = {
-            name: productForm.NameInput.value,
-            price: parseFloat(productForm.costInput.value).toFixed(2),
-            stock: parseInt(productForm.stockInput.value, 10),
-            description: productForm.descriptionInput.value,
-        };
-        console.log(updateProduct(product));
-        if (updateProduct(product)) {
-            window.location.href = "list.html";
+        // const product = {
+        //     name: productForm.NameInput.value,
+        //     price: parseFloat(productForm.costInput.value).toFixed(2),
+        //     stock: parseInt(productForm.stockInput.value, 10),
+        //     description: productForm.descriptionInput.value,
+        // };
+
+        let description = productForm.descriptionInput.value;
+        const product = new Product(productForm.NameInput.value, Number(productForm.costInput.value), Number(productForm.stockInput.value), description);
+        // console.log(product);
+        try{
+            // console.log(productId);
+            await productService.updateProduct(productId, product);
+            // window.location.href = "list.html";
+        } catch(error){
+            console.log(error);
         }
+        // if (updateProduct(product)) {
+        // }
     }
 }

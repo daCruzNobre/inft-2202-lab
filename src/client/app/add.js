@@ -12,11 +12,13 @@ const productService = new ProductServiceConstructor(host, key);
 const addProductForm = document.querySelector(".addProductForm");
 const errorParagraphs = document.querySelectorAll(".error");
 const title = document.querySelector("h1");
-let param = new URL(document.location).searchParams;
-let name = param.get("name");
+// let param = new URL(document.location).searchParams;
+// let name = param.get("name");
+const param = new URL(document.location).searchParams;
+const productId = param.get("id");
 
 // Check if the name param is at the url
-if (!name) {
+if (!productId) {
     addProductForm.addEventListener("submit", submitProductForm);
 }
 
