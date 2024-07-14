@@ -21,6 +21,7 @@ const title = document.querySelector("title");
 const heading = document.querySelector(".heading");
 const productForm = document.querySelector(".addProductForm");
 const submitBtn = document.querySelector(".submitBtn");
+const spinner = document.querySelector('.fa-spinner');
 
 // If there is a name parameter, call setupEditForm()
 if (productId) {
@@ -61,9 +62,12 @@ async function submitEditForm(productId, e) {
         // console.log(product);
         try{
             // console.log(productId);
+            spinner.classList.remove("d-none");
             await productService.updateProduct(productId, product);
+            spinner.classList.add("d-none");
             // window.location.href = "list.html";
         } catch(error){
+            spinner.classList.add("d-none");
             console.log(error);
         }
         // if (updateProduct(product)) {

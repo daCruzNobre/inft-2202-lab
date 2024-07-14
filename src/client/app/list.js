@@ -35,9 +35,12 @@ async function initPage() {
     perPage = parseInt(params.get('perPage')) || 5;
 
     try {
+        spinner.classList.remove("d-none");
         await fetchAndRenderProducts();
-    } catch (error) {
+        spinner.classList.add("d-none");
+      } catch (error) {
         console.error(error);
+        spinner.classList.add("d-none");
     }
 }
 
@@ -53,8 +56,8 @@ async function fetchAndRenderProducts() {
 
         drawProductGroup(products);
         drawPagination(pagination);
-
         spinner.classList.add("d-none");
+
     } catch (error) {
         spinner.classList.add("d-none");
         messageBox.classList.remove("d-none");

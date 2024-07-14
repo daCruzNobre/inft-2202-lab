@@ -16,6 +16,7 @@ const title = document.querySelector("h1");
 // let name = param.get("name");
 const param = new URL(document.location).searchParams;
 const productId = param.get("id");
+const spinner = document.querySelector('.fa-spinner');
 
 // Check if the name param is at the url
 if (!productId) {
@@ -75,8 +76,11 @@ function submitProductForm(event) {
 
         // Try to save the product
         try {
+            spinner.classList.remove("d-none");
+            
             productService.saveProduct(newProduct);
             event.target.reset();
+            spinner.classList.remove("d-none");
         } catch (nameError) {
             console.error("Product with that name already exists");
             const errorParagraph = document.querySelector(".error-message");
