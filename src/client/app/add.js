@@ -1,6 +1,12 @@
-import { saveProduct } from "./product.service.mock.js";
+// import { saveProduct } from "./product.service.mock.js";
+import { ProductService as ProductServiceConstructor } from "./product.service.js";
 // import { saveProduct } from "./product.service.js";
 import { Product } from "./product.js";
+import { key } from "../../apikey.js";
+
+const host = "https://inft2202.paclan.net/api/products/"
+
+const productService = new ProductServiceConstructor(host, key);
 
 // Variable and constants declaration
 const addProductForm = document.querySelector(".addProductForm");
@@ -65,14 +71,15 @@ function submitProductForm(event) {
             addProductForm.descriptionInput.value.trim()
         );        
 
-        let validName = saveProduct(newProduct);
-        if (validName) {
+        // Try to save the product
+        try {
+            productService.saveProduct(newProduct);
             event.target.reset();
-            window.location.href = "list.html";
-        } else {
-            console.log("Product with that name already exists");
-            errorParagraphs[0].textContent = "Product with that name already exists";
-            errorParagraphs[0].classList.remove("d-none");
+        } catch (nameError) {
+            console.error("Product with that name already exists");
+            const errorParagraph = document.querySelector(".error-message");
+            errorParagraph.textContent = "Product with that name already exists";
+            errorParagraph.classList.remove("d-none");
         }
     } else {
         const errorPara = document.createElement('p');

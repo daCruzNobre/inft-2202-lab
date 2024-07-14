@@ -8,9 +8,25 @@ export function ProductService(host, apikey){
 /*
  * Find a product by name
  */
-ProductService.prototype.findProduct = function(productName) {
-  const products = getProducts();
-  return products.find(product => product.name.toLowerCase() === productName.toLowerCase());
+ProductService.prototype.findProduct = async function(productId) {
+  // console.log(productId);
+  const url = new URL(`${this.host}${productId}`);
+  console.log(url);       
+  const headers = new Headers({
+      'apikey': this.apikey,
+      'content-type': "application/json",
+  });
+  const request = new Request(url, {
+      headers,
+      method: 'GET',      
+  })
+  try {
+      const response = await fetch(request);
+      const data = await response.json();
+      console.log(data);    
+  } catch (error) {        
+      console.log(error);
+  }
 }
 
 /*
@@ -74,7 +90,7 @@ ProductService.prototype.getProducts = async function(page=1, perPage=5) {
     const response = await fetch(request);
     const data = await response.json();
     // console.log(data);
-    // console.log(data.records);
+    console.log(data.records);
     return data.records
   } catch (error) {
     console.log(error);
@@ -84,15 +100,40 @@ ProductService.prototype.getProducts = async function(page=1, perPage=5) {
 /*
  * Save a new product
  */
-ProductService.prototype.saveProduct = function(product) {
-  const products = getProducts();
-  if (products.find(p => p.name.toLowerCase() === product.name.toLowerCase())) {
-    return false;
+ProductService.prototype.saveProduct = async function(product) {
+  const url = new URL(this.host);
+  const headers = new Headers({
+    'apikey': this.apikey,
+    'Content-Type': 'application/json'});
+  console.log(product);
+//   const body = {
+//     name: product.name,
+//     description: product.description,
+//     stock: product.stock,
+//     price: product.price,
+// }
+  const request = new Request(url,{
+    headers,
+    method:'POST',
+    body: JSON.stringify(product),
+  });
+  try {
+    const response = await fetch(request);
+    const data = await response.json();
+    console.log(data);
+    // return data.pagination
+  } catch (error) {
+    console.log(error);
   }
 
-  products.push(product);
-  localStorage.setItem("products", JSON.stringify(products));
-  return true;
+  // const products = getProducts();
+  // if (products.find(p => p.name.toLowerCase() === product.name.toLowerCase())) {
+  //   return false;
+  // }
+
+  // products.push(product);
+  // localStorage.setItem("products", JSON.stringify(products));
+  // return true;
 }
 
 /**

@@ -23,6 +23,8 @@ let perPage = 5;
 // Initialize the page with URL parameters or defaults
 initPage();
 
+const productFInd = await productService.findProduct("66941d40392a14a4f5679ec1");
+console.log(productFInd);
 async function initPage() {
     const params = new URLSearchParams(window.location.search);
     currentPage = parseInt(params.get('page')) || 1;
