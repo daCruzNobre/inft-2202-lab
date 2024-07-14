@@ -153,12 +153,14 @@ function drawProductGroup(products) {
       editIcon.classList.add("fa-solid", "fa-file-pen");
       editLink.classList.add("btn", "btn-primary", "my-1", "mx-1");
       editLink.appendChild(editIcon);
-      editLink.href = `../client/add.html?name=${product.name}`;
+      editLink.href = `../client/add.html?id=${product.productId}`;
 
       // Append buttons to card footer
+      if (product.owner.name == "João Pedro da Cruz Nobre"){
+        cardFooter.appendChild(editLink);
+        cardFooter.appendChild(deleteButton);
+      };
       cardFooter.appendChild(addToCartButton);
-      cardFooter.appendChild(editLink);
-      cardFooter.appendChild(deleteButton);
 
       productGroup.appendChild(card);
   });

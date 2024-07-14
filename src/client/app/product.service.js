@@ -23,7 +23,8 @@ ProductService.prototype.findProduct = async function(productId) {
   try {
       const response = await fetch(request);
       const data = await response.json();
-      console.log(data);    
+      // console.log(data);
+      return data
   } catch (error) {        
       console.log(error);
   }
@@ -32,22 +33,40 @@ ProductService.prototype.findProduct = async function(productId) {
 /*
  * Update an existing product
  */
-ProductService.prototype.updateProduct = function(product) {
-  // Get a list of products
-  const products = getProducts();
-  // Find the index of the product we're trying to update
-  let productIndex = products.findIndex(p => p.name.toLowerCase() === product.name.toLowerCase());
-  // If the product doesn't exist, return false
-  if (productIndex === -1) {
-    return false;
-  } else {
-    // Use the index to update the fields for the selected product
-    products[productIndex] = product;
-    // Put the new list back into storage
-    localStorage.setItem("products", JSON.stringify(products));
-    // Return true if everything is good
-    return true;
-  }
+ProductService.prototype.updateProduct = async function(productId, product) {
+  const url = new URL(`${this.host}${productId}`);           
+    const headers = new Headers({
+        'apikey': apikey,
+        'content-type': "application/json",
+    });
+    
+    const request = new Request(url, {
+        headers,
+        method: 'PUT',
+        body: JSON.stringify(product),     
+    })
+    try {
+        const response = await fetch(request);
+        const data = await response.json();
+        console.log(data.records);
+    } catch (error) {        
+        console.log(error);
+    }
+  // // Get a list of products
+  // const products = getProducts();
+  // // Find the index of the product we're trying to update
+  // let productIndex = products.findIndex(p => p.name.toLowerCase() === product.name.toLowerCase());
+  // // If the product doesn't exist, return false
+  // if (productIndex === -1) {
+  //   return false;
+  // } else {
+  //   // Use the index to update the fields for the selected product
+  //   products[productIndex] = product;
+  //   // Put the new list back into storage
+  //   localStorage.setItem("products", JSON.stringify(products));
+  //   // Return true if everything is good
+  //   return true;
+  // }
 }
 
 /*
