@@ -1,0 +1,10 @@
+#product-group{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.card{
+    max-width: 17rem;
+    min-width: 17rem;
+}

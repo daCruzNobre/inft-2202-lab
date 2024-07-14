@@ -84,7 +84,7 @@ function drawProductGroup(products) {
 
       // Add classes and attributes
       card.classList.add("card");
-      card.setAttribute("style", "max-width: 17rem");
+      // card.setAttribute("style", "max-width: 17rem");
       cardBody.classList.add("card-body");
       cardFooter.classList.add("card-footer");
       title.classList.add("card-title");
