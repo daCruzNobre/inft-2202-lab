@@ -85,7 +85,9 @@ function drawProductGroup(products) {
       let description = document.createElement("p");
       let list = document.createElement("ul");
       let cost = document.createElement("li");
-      let type = document.createElement("li");
+      let author = document.createElement("li");
+      let date = document.createElement("li");
+      let stock = document.createElement("li");
 
       // Add classes and attributes
       card.classList.add("card");
@@ -96,7 +98,9 @@ function drawProductGroup(products) {
       description.classList.add("card-text");
       list.classList.add("list-group", "list-group-flush");
       cost.classList.add("list-group-item");
-      type.classList.add("list-group-item");
+      author.classList.add("list-group-item");
+      date.classList.add("list-group-item");
+      stock.classList.add("list-group-item");
       img.classList.add("card-img-top");
       img.setAttribute("src", "./img/bag-1455765_640.jpg");
       img.setAttribute("alt", "Product image");
@@ -106,7 +110,9 @@ function drawProductGroup(products) {
       title.textContent = product.name;
       description.textContent = product.description;
       cost.textContent = `Cost: $${product.price}`;
-      type.textContent = `Stock: ${product.stock}`;
+      author.textContent = `Listed by: ${product.owner.name}`;
+      date.textContent = `Listed at: ${product.createdAt}`;
+      stock.textContent = `Stock: ${product.stock}`;
 
       // Assemble the card
       card.appendChild(img);
@@ -117,8 +123,10 @@ function drawProductGroup(products) {
       cardBody.appendChild(title);
       cardBody.appendChild(description);
 
-      list.appendChild(type);
+      list.appendChild(stock);
       list.appendChild(cost);
+      list.appendChild(author);
+      list.appendChild(date);
 
       // Create a delete button
       let deleteButton = document.createElement("button");
