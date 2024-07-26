@@ -5,6 +5,7 @@ export function ProductService(host, apikey){
   this.apikey = apikey;
 }
 
+
 /*
  * Find a product by name
  */

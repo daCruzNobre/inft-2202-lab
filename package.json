@@ -1,24 +1,33 @@
 {
   "name": "inft-2202-lab",
   "version": "1.0.0",
-  "description": "Repository to store all lab applications in Webdeveloptment Css",
-  "main": "index.js",
-  "type":"module",
+  "description": "Repository to store all lab applications in Webdeveloptment Css.",
+  "main": "server/app.js",
+  "type": "module",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.5.2",
+    "bootstrap": "^5.3.3",
+    "express": "^4.19.2",
+    "express-validator": "^7.1.0",
+    "mongoose": "^8.5.0",
+    "npm": "^10.8.0",
+    "winston": "^3.13.1"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/server/app.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/daCruzNobre/inft-2202-lab.git"
   },
-  "author": "João Pedro da Cruz Nobre",
+  "author": "João Pedro",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/daCruzNobre/inft-2202-lab/issues"
   },
   "homepage": "https://github.com/daCruzNobre/inft-2202-lab#readme",
-  "dependencies": {
-    "@fortawesome/fontawesome-free": "^6.5.2",
-    "bootstrap": "^5.3.3"
+  "devDependencies": {
+    "nodemon": "^3.1.4"
   }
 }
