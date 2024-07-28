@@ -2,11 +2,10 @@
 import { ProductService as ProductServiceConstructor } from "./product.service.js";
 // import { saveProduct } from "./product.service.js";
 import { Product } from "./product.js";
-import { key } from "../../apikey.js";
 
 const host = "https://inft2202.paclan.net/api/products/"
 
-const productService = new ProductServiceConstructor(host, key);
+const productService = new ProductServiceConstructor(host);
 
 // Variable and constants declaration
 const addProductForm = document.querySelector(".addProductForm");
@@ -15,11 +14,12 @@ const title = document.querySelector("h1");
 // let param = new URL(document.location).searchParams;
 // let name = param.get("name");
 const param = new URL(document.location).searchParams;
-const productId = param.get("id");
+const _id = param.get("id");
 const spinner = document.querySelector('.fa-spinner');
 
 // Check if the name param is at the url
-if (!productId) {
+if (!_id) {
+    console.log("we are adding");
     addProductForm.addEventListener("submit", submitProductForm);
 }
 

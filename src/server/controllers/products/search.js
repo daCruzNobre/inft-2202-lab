@@ -22,7 +22,7 @@ const handle = async (request, response, next) => {
         const pages = Math.ceil(count / perPage);
         
         const pagination = {
-            page: parseInt(pages),
+            page: parseInt(page),
             perPage: parseInt(perPage),
             count,
             pages

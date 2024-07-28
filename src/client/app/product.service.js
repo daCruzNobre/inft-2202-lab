@@ -1,8 +1,7 @@
 import { Product } from './product.js';
 
-export function ProductService(host, apikey){
+export function ProductService(host){
   this.host = host;
-  this.apikey = apikey;
 }
 
 
@@ -12,9 +11,8 @@ export function ProductService(host, apikey){
 ProductService.prototype.findProduct = async function(productId) {
   // console.log(productId);
   const url = new URL(`${this.host}${productId}`);
-  // console.log(url);       
+  console.log(url);       
   const headers = new Headers({
-      'apikey': this.apikey,
       'content-type': "application/json",
   });
   const request = new Request(url, {
@@ -38,7 +36,6 @@ ProductService.prototype.updateProduct = async function(productId, product) {
   const url = new URL(`${this.host}${productId}`);
   console.log(url);        
     const headers = new Headers({
-        'apikey': this.apikey,
         'content-type': "application/json",
     });
     
@@ -78,7 +75,6 @@ ProductService.prototype.deleteProduct = async function(productId) {
   const url = new URL(`${this.host}${productId}`);
   console.log(url);        
     const headers = new Headers({
-        'apikey': this.apikey,
         'content-type': "application/json",
     });    
     const request = new Request(url, {
@@ -116,9 +112,9 @@ ProductService.prototype.getProducts = async function(page=1, perPage=5) {
   const url = new URL(this.host);
   url.searchParams.append('page', page);
   url.searchParams.append('perPage', perPage);
-  console.log(url);
+  // console.log(url);
+  // console.log(url);
   const headers = new Headers({
-    'apikey': this.apikey
   });
   const request = new Request(url,{
     headers,
@@ -128,7 +124,7 @@ ProductService.prototype.getProducts = async function(page=1, perPage=5) {
     const response = await fetch(request);
     const data = await response.json();
     // console.log(data);
-    console.log(data.records);
+    // console.log(data.records);
     return data.records
   } catch (error) {
     console.log(error);
@@ -141,7 +137,6 @@ ProductService.prototype.getProducts = async function(page=1, perPage=5) {
 ProductService.prototype.saveProduct = async function(product) {
   const url = new URL(this.host);
   const headers = new Headers({
-    'apikey': this.apikey,
     'Content-Type': 'application/json'});
   console.log(product);
 //   const body = {
@@ -158,7 +153,7 @@ ProductService.prototype.saveProduct = async function(product) {
   try {
     const response = await fetch(request);
     const data = await response.json();
-    console.log(data);
+    // console.log(data);
     // return data.pagination
   } catch (error) {
     console.log(error);
@@ -183,7 +178,6 @@ ProductService.prototype.getPagination = async function(page=1, perPage=5){
   url.searchParams.append('perPage', perPage);
   console.log(url);
   const headers = new Headers({
-    'apikey': this.apikey
   });
   const request = new Request(url,{
     headers,
@@ -192,7 +186,7 @@ ProductService.prototype.getPagination = async function(page=1, perPage=5){
   try {
     const response = await fetch(request);
     const data = await response.json();
-    // console.log(data.records);
+    // console.log(data.pagination);
     return data.pagination
   } catch (error) {
     console.log(error);

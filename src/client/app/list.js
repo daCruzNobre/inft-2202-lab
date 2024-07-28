@@ -1,11 +1,12 @@
-// Import methods from product.service.js
+// apikey// Import methods from product.service.js
 // import { getProducts, deleteProduct } from "./product.service.mock.js";
 import { ProductService as ProductServiceConstructor } from "./product.service.js";
-import { key } from "../../apikey.js";
+// import { key } from "../../apikey.js";
 
-const host = "https://inft2202.paclan.net/api/products/"
+// const host = "https://inft2202.paclan.net/api/products/"
+const host = "http://localhost:3000/api/products/"
 
-const productService = new ProductServiceConstructor(host, key);
+const productService = new ProductServiceConstructor(host);
 // Get a reference to the message box
 const messageBox = document.querySelector("#empty-message");
 // Get a reference to the product group
@@ -52,12 +53,17 @@ async function fetchAndRenderProducts() {
         productGroup.classList.add("d-none");
 
         const products = await productService.getProducts(currentPage, perPage);
+        console.log(currentPage, perPage)
         const pagination = await productService.getPagination(currentPage, perPage);
 
+        console.log("working");
+        console.log(products);
+        console.log(pagination);
+        
         drawProductGroup(products);
         drawPagination(pagination);
         spinner.classList.add("d-none");
-
+        
     } catch (error) {
         spinner.classList.add("d-none");
         messageBox.classList.remove("d-none");
@@ -66,7 +72,8 @@ async function fetchAndRenderProducts() {
 
 // Draw the product group
 function drawProductGroup(products) {
-  productGroup.replaceChildren(); // Delete all content from product group
+    productGroup.replaceChildren(); // Delete all content from product group
+    
   
   // If there are no products in the list
   if (products === undefined || products.length === 0) {
@@ -76,9 +83,10 @@ function drawProductGroup(products) {
       messageBox.classList.add("d-none");
       productGroup.classList.remove("d-none");
   }
-
+  console.log(products);
   // For every product in the list
   products.forEach(product => {
+      
       // Create a new Card Element
       let card = document.createElement("div");
       let img = document.createElement("img");
@@ -88,10 +96,9 @@ function drawProductGroup(products) {
       let description = document.createElement("p");
       let list = document.createElement("ul");
       let cost = document.createElement("li");
-      let author = document.createElement("li");
       let date = document.createElement("li");
       let stock = document.createElement("li");
-
+      console.log(card)
       // Add classes and attributes
       card.classList.add("card");
       // card.setAttribute("style", "max-width: 17rem");
@@ -101,34 +108,33 @@ function drawProductGroup(products) {
       description.classList.add("card-text");
       list.classList.add("list-group", "list-group-flush");
       cost.classList.add("list-group-item");
-      author.classList.add("list-group-item");
       date.classList.add("list-group-item");
       stock.classList.add("list-group-item");
       img.classList.add("card-img-top");
       img.setAttribute("src", "./img/bag-1455765_640.jpg");
       img.setAttribute("alt", "Product image");
       img.setAttribute("style", "width: 16rem");
-
+      
+    //   console.log(card)
       // Set the contents
       title.textContent = product.name;
       description.textContent = product.description;
       cost.textContent = `Cost: $${product.price}`;
-      author.textContent = `Listed by: ${product.owner.name}`;
       date.textContent = `Listed at: ${product.createdAt}`;
       stock.textContent = `Stock: ${product.stock}`;
-
+      
+    //   console.log(title)
       // Assemble the card
       card.appendChild(img);
       card.appendChild(cardBody);
       card.appendChild(list);
       card.appendChild(cardFooter);
-
+      
       cardBody.appendChild(title);
       cardBody.appendChild(description);
 
       list.appendChild(stock);
       list.appendChild(cost);
-      list.appendChild(author);
       list.appendChild(date);
 
       // Create a delete button
@@ -144,7 +150,7 @@ function drawProductGroup(products) {
           event.preventDefault();
           modalDelete.addEventListener("click", async (event) => {
               event.preventDefault();
-              console.log(product.productId);
+              console.log(product._Id);
               const responseStatus = await productService.deleteProduct(product.productId);
               if (responseStatus !== 200 && responseStatus !== 204 ) {
                 throw new Error("Could not delete");
@@ -169,15 +175,14 @@ function drawProductGroup(products) {
       editIcon.classList.add("fa-solid", "fa-file-pen");
       editLink.classList.add("btn", "btn-primary", "my-1", "mx-1");
       editLink.appendChild(editIcon);
-      editLink.href = `../client/add.html?id=${product.productId}`;
+      console.log(product._id)
+      editLink.href = `../add.html?id=${product._id}`;
 
       // Append buttons to card footer
-      if (product.owner.name == "João Pedro da Cruz Nobre"){
         cardFooter.appendChild(editLink);
         cardFooter.appendChild(deleteButton);
-      };
       cardFooter.appendChild(addToCartButton);
-
+      
       productGroup.appendChild(card);
   });
 }
