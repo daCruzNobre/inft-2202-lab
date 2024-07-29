@@ -3,7 +3,9 @@ import { ProductService as ProductServiceConstructor } from "./product.service.j
 // import { saveProduct } from "./product.service.js";
 import { Product } from "./product.js";
 
-const host = "https://inft2202.paclan.net/api/products/"
+// const host = "https://inft2202.paclan.net/api/products/"
+const host = "http://localhost:3000/api/products/"
+
 
 const productService = new ProductServiceConstructor(host);
 
@@ -80,7 +82,10 @@ function submitProductForm(event) {
             
             productService.saveProduct(newProduct);
             event.target.reset();
-            spinner.classList.remove("d-none");
+            spinner.classList.add("d-none");
+            const successMessage = document.querySelector(".alert-info");
+            successMessage.textContent = "Product added to product list";
+            successMessage.classList.remove("d-none");
         } catch (nameError) {
             console.error("Product with that name already exists");
             const errorParagraph = document.querySelector(".error-message");

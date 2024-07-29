@@ -9,6 +9,7 @@ import { Product } from "./product.js";
 
 const host = "http://localhost:3000/api/products/"
 
+
 const productService = new ProductServiceConstructor(host);
 
 import { validateProductForm } from "./add.js";
@@ -66,7 +67,7 @@ async function submitEditForm(_id, e) {
             spinner.classList.remove("d-none");
             await productService.updateProduct(_id, product);
             spinner.classList.add("d-none");
-            // window.location.href = "list.html";
+            window.location.href = "list.html";
         } catch(error){
             spinner.classList.add("d-none");
             console.log(error);
