@@ -1,7 +1,7 @@
 // import { saveProduct } from "./product.service.mock.js";
 import { ProductService as ProductServiceConstructor } from "./product.service.js";
 // import { saveProduct } from "./product.service.js";
-import { Product } from "./product.js";
+import { Product } from "../model/product.js";
 
 // const host = "https://inft2202.paclan.net/api/products/"
 const host = "http://localhost:3000/api/products/"

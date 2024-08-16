@@ -1,0 +1,36 @@
+@import 'bootstrap/scss/bootstrap.scss';
+
+$fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
+@import "@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "@fortawesome/fontawesome-free/scss/solid.scss";
+@import "@fortawesome/fontawesome-free/scss/regular.scss";
+
+
+
+[route] {
+    cursor: pointer;
+}
+
+//  styles for list page 
+.main{
+    display: flex;
+}
+
+#product-group{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.card{
+    max-width: 17rem;
+    min-width: 17rem;
+}
+
+// styles for about page 
+.accordion-body{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+

@@ -3,6 +3,7 @@ import express from 'express';
 import { router } from './router/router.js';
 // import { productRouter } from './router/productRouter.js';
 import mongoose from 'mongoose';
+import path from 'path';
 
 // Import logger
 import { LogginMiddleware } from './middleware/login.js' 
@@ -26,11 +27,15 @@ server.use(express.json());
 server.use(LogginMiddleware);
 
 // automatically serve astatic assests
-server.use(express.static(`${import.meta.dirname}/../client`));
+server.use(express.static(`${import.meta.dirname}/../../dist`));
 server.use('/node_modules', express.static(import.meta.dirname + '/../../node_modules'));
 
 server.use(router);
 // server.use(productRouter);
+
+server.get('*', (req, res, next) => {
+    res.sendFile(path.resolve(import.meta.dirname + '/../../dist/index.html'));
+});
 
 server.use(ErrorHandlingMiddleware);
 

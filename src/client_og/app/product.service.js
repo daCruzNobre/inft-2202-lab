@@ -1,4 +1,4 @@
-import { Product } from './product.js';
+import { Product } from '../model/product.js';
 
 export function ProductService(host){
   this.host = host;

@@ -1,0 +1,36 @@
+<div class="container-fluid mt-1">
+  <h1 class="heading h2 text-center my-2">Add Product</h1>
+</div>
+<div class="container-fluid">
+  <i class="fa-solid fa-spinner fa-spin fa-xl d-none" style="color:black;"></i>
+</div>
+<div class="container-fluid mb-3 pb-5">
+  <div class="alert alert-info d-none" role="alert">
+      Producd Succesfully added
+  </div>
+  <form class="addProductForm" action="" method="POST">
+      <div class="mb-3">
+          <label for="NameInput" class="form-label">Name</label>
+          <input type="text" class="form-control" id="NameInput" name="NameInput" placeholder="">
+          <p class="error text-danger d-none"></p>
+      </div>
+      <div class="mb-3">
+          <label for="costInput" class="form-label">Cost</label>
+          <input type="text" class="form-control" id="costInput" name="costInput" placeholder="">
+          <p class="error text-danger d-none"></p>
+      </div>
+      <div class="mb-3">
+          <label for="stockInput" class="form-label">Stock</label>
+          <input type="number" class="form-control" id="stockInput" name="stockInput" placeholder="">
+          <p class="error text-danger d-none"></p>
+      </div>
+      <div class="mb-3">
+          <label for="descriptionInput" class="form-label">Product Description:</label>
+          <textarea class="form-control" id="descriptionInput" name="descriptionInput" rows="3" required></textarea>
+          <p class="error alert alert-danger d-none"></p>
+      </div>
+      <div class="mb-3">
+          <button type="submit" class="submitBtn btn btn-primary mt-3 mb-3">Submit</button>
+      </div>
+  </form>
+</div>

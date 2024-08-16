@@ -1,0 +1,98 @@
+<div class="container-fluid mt-1">
+  <h1 class="heading h2 text-center my-2">Product List</h1>
+</div>
+
+<div class="container-fluid bg-body-tertiary justify-content-right">
+  <a class="float-end btn mb-1 btn-tertiary bg-dark text-white dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Products Per Page
+  </a>    
+  <ul class="dropdown-menu">
+    <li><a class="bg-dark text-white dropdown-item dpItem" href="#">2</a></li>
+    <li><a class="bg-dark text-white dropdown-item dpItem" href="#">5</a></li>
+    <li><a class="bg-dark text-white dropdown-item dpItem" href="#">10</a></li>
+    <li><a class="bg-dark text-white dropdown-item dpItem" href="#">20</a></li>
+  </ul>
+</div>
+
+<div class="container-fluid">
+  <i class="fa-solid fa-spinner fa-spin fa-xl d-none" style="color:black;" id="spinner"></i>
+</div>
+
+<div class="main container-fluid">
+  <div id="empty-message" class="alert alert-danger alert-warning d-none">
+      The shop is currently closed.
+  </div>
+  <div class="card-group mb-3" id="product-group">
+    <% if (products.length === 0) { %>
+      <p id="empty-message" class="d-none">No products available.</p>
+    <% } else { %>
+      <% products.forEach(product => { %>
+        <div class="card">
+          <img src="./img/bag-1455765_640.jpg" class="card-img-top" alt="Product image" style="width: 16rem;">
+          <div class="card-body">
+            <h5 class="card-title"><%= product.name %></h5>
+            <p class="card-text"><%= product.description %></p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Stock: <%= product.stock %></li>
+            <li class="list-group-item">Cost: $<%= product.price %></li>
+            <li class="list-group-item">Listed at: <%= product.createdAt %></li>
+          </ul>
+          <div class="card-footer">
+            <a href="../add.html?id=<%= product._id %>" class="btn btn-primary my-1 mx-1">
+              <i class="fa-solid fa-file-pen"></i>
+            </a>
+            <button class="btn btn-danger my-1 mx-1" data-product-id="<%= product._id %>" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+            <button class="btn btn-primary my-1 mx-1">
+              <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+        </div>
+      <% }) %>
+    <% } %>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete?</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Do you want to delete the entry?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+        <button type="button" id="modalDelete" class="btn btn-primary">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="justify-content-center container-fluid" style="margin-bottom: 100px;">
+  <nav aria-label="Page navigation example">
+    <ul class="pagination">
+      <% if (pagination.page > 1) { %>
+        <li class="page-item">
+          <a class="page-link" href="list?page=<%= pagination.page - 1 %>&perPage=<%= pagination.perPage %>">Previous</a>
+        </li>
+      <% } %>
+  
+      <% for (let i = 1; i <= pagination.pages; i++) { %>
+        <li class="page-item <%= i === pagination.page ? 'active' : '' %>">
+          <a class="page-link" href="list?page=<%= i %>&perPage=<%= pagination.perPage %>"><%= i %></a>
+        </li>
+      <% } %>
+  
+      <% if (pagination.page < pagination.pages) { %>
+        <li class="page-item">
+          <a class="page-link" href="list?page=<%= pagination.page + 1 %>&perPage=<%= pagination.perPage %>">Next</a>
+        </li>
+      <% } %>
+    </ul>
+  </nav>
+</div>

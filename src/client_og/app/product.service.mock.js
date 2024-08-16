@@ -1,4 +1,4 @@
-import { Product } from './product.js';
+import { Product } from '../model/product.js';
 
 /*
  * Find a product by name
