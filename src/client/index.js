@@ -17,6 +17,7 @@ import AboutPage from './app/pages/about/about.js'
 import ListPage from './app/pages/list/list.js'
 import ContactPage from './app/pages/contact/contact.js'
 import AddPage from './app/pages/add/add.js'
+import EditPage from './app/pages/add/edit.js'
 
 console.log("Hello World!");
 
@@ -33,6 +34,7 @@ window.addEventListener('load', () => {
         .on('/list', ListPage)
         .on('/contact', ContactPage)
         .on('/add', AddPage)
+        .on('/edit', EditPage)
         .resolve();
 
     document.addEventListener('click', event => {

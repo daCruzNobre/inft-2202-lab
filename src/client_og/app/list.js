@@ -176,7 +176,7 @@ function drawProductGroup(products) {
       editLink.classList.add("btn", "btn-primary", "my-1", "mx-1");
       editLink.appendChild(editIcon);
       console.log(product._id)
-      editLink.href = `../add.html?id=${product._id}`;
+      editLink.href = `../add?id=${product._id}`;
 
       // Append buttons to card footer
         cardFooter.appendChild(editLink);
@@ -198,7 +198,7 @@ function drawPagination(pagination) {
         const pageLink = document.createElement("a");
         pageItem.classList.add("page-item");
         pageLink.classList.add("page-link");
-        pageLink.href = `list.html?page=${index}&perPage=${perPage}`;
+        pageLink.href = `list?page=${index}&perPage=${perPage}`;
         pageLink.textContent = index;
 
         pageItem.appendChild(pageLink);
@@ -223,7 +223,7 @@ function drawPagination(pagination) {
     if (currentPage === 1) {
         previousButton.classList.add("disabled");
     } else {
-        previousLink.href = `list.html?page=${currentPage - 1}&perPage=${perPage}`;
+        previousLink.href = `list?page=${currentPage - 1}&perPage=${perPage}`;
         previousLink.addEventListener('click', (e) => {
             e.preventDefault();
             currentPage -= 1;
@@ -243,7 +243,7 @@ function drawPagination(pagination) {
     if (currentPage === pages) {
         nextButton.classList.add("disabled");
     } else {
-        nextLink.href = `list.html?page=${currentPage + 1}&perPage=${perPage}`;
+        nextLink.href = `list?page=${currentPage + 1}&perPage=${perPage}`;
         nextLink.addEventListener('click', (e) => {
             e.preventDefault();
             currentPage += 1;
@@ -254,7 +254,7 @@ function drawPagination(pagination) {
 
 // Update the URL and fetch products
 function updateUrlAndFetchProducts() {
-    const newUrl = `list.html?page=${currentPage}&perPage=${perPage}`;
+    const newUrl = `list?page=${currentPage}&perPage=${perPage}`;
     const newTitle = `List Page ${currentPage}`;
     const newState = { additionalInformation: `List Page ${currentPage}` };
     window.history.replaceState(newState, newTitle, newUrl);

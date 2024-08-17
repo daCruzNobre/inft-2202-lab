@@ -1,5 +1,6 @@
 import tmplList from './list.ejs';
 import { ProductService as ProductServiceConstructor } from '../../model/product.service.js';
+import { Modal } from 'bootstrap';
 
 const host = "http://localhost:3000/api/products/";
 const productService = new ProductServiceConstructor(host);
@@ -67,7 +68,7 @@ function onRender() {
 
 async function handleDelete(productId) {
     const modalDelete = document.querySelector("#modalDelete");
-    const exampleModal = new bootstrap.Modal('#exampleModal');
+    const exampleModal = new Modal('#exampleModal');
 
     modalDelete.addEventListener("click", async (event) => {
         event.preventDefault();
