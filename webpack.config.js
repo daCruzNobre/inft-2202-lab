@@ -21,6 +21,7 @@ const config = {
         open: true,
         host: 'localhost',
     },
+    devtool: 'source-map',
     plugins: [
         // add new option to use the ejs file
         new HtmlWebpackPlugin({
