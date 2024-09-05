@@ -3,17 +3,17 @@ import { ProductService as ProductServiceConstructor } from '../../model/product
 import { Modal } from 'bootstrap';
 
 const host = "http://localhost:3000/api/products/";
-const productService = new ProductServiceConstructor(host);
+const ProductService = new ProductServiceConstructor(host);
 
 export default async () => {
     console.log('loadingList');
-
+    
     const { products, pagination } = await onInit(host);
     const strList = tmplList({ products, pagination });
-
+    
     document.getElementById('app').replaceChildren();
     document.getElementById('app').innerHTML = strList;
-
+    
     onRender();
 }
 
@@ -21,12 +21,10 @@ async function onInit(host) {
     const params = new URLSearchParams(window.location.search);
     const currentPage = parseInt(params.get('page')) || 1;
     const perPage = parseInt(params.get('perPage')) || 5;
-
-    const ProductService = new ProductServiceConstructor(host);
-
     try {
         const products = await ProductService.getProducts(currentPage, perPage);
         const pagination = await ProductService.getPagination(currentPage, perPage);
+        console.log(pagination.page);
         return { products, pagination };
     } catch (error) {
         console.error(error);
@@ -44,41 +42,33 @@ function onRender() {
             updateUrlAndFetchProducts({ perPage, currentPage: 1 });
         });
     });
-
-    // Set up event listenesr for the pagination controls
-    const paginationLinks = document.querySelectorAll('.page-link');
-    paginationLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const newPage = parseInt(link.textContent);
-            updateUrlAndFetchProducts({ currentPage: newPage });
-        });
-    });
-
+    
+    const exampleModal = new Modal('#exampleModal');
+    // const exampleModal = new Modal('#exampleModal');
     // Set up event listeners for delete buttons
     const deleteButtons = document.querySelectorAll('.btn-danger');
     deleteButtons.forEach(button => {
         button.addEventListener('click', async (event) => {
             event.preventDefault();
             const productId = event.currentTarget.getAttribute('data-product-id');
-            await handleDelete(productId);
+            await handleDelete(productId, exampleModal);
         });
     });
 }
 
-async function handleDelete(productId) {
+async function handleDelete(productId, exampleModal) {
     const modalDelete = document.querySelector("#modalDelete");
-    const exampleModal = new Modal('#exampleModal');
-
+    
     modalDelete.addEventListener("click", async (event) => {
         event.preventDefault();
-
+        
         try {
-            const responseStatus = await productService.deleteProduct(productId);
+            const responseStatus = await ProductService.deleteProduct(productId);
             if (responseStatus === 200 || responseStatus === 204) {
                 const { products, pagination } = await onInit(host);
                 const strList = tmplList({ products, pagination });
                 document.getElementById('app').innerHTML = strList;
+                console.log(exampleModal);
                 exampleModal.hide();
                 onRender();
             } else {
