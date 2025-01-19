@@ -76,18 +76,44 @@
 <div class="justify-content-center container-fluid" style="margin-bottom: 100px;">
   <nav aria-label="Page navigation example">
     <ul class="pagination">
+      <% const maxPagesToShow = 10; %>
+      <% const startPage = Math.max(1, pagination.page - Math.floor(maxPagesToShow / 2)); %>
+      <% const endPage = Math.min(pagination.pages, startPage + maxPagesToShow - 1); %>
+
       <% if (pagination.page > 1) { %>
         <li class="page-item">
           <a class="page-link" href="list?page=<%= pagination.page - 1 %>&perPage=<%= pagination.perPage %>">Previous</a>
         </li>
       <% } %>
-  
-      <% for (let i = 1; i <= pagination.pages; i++) { %>
+
+      <% if (startPage > 1) { %>
+        <li class="page-item">
+          <a class="page-link" href="list?page=1&perPage=<%= pagination.perPage %>">1</a>
+        </li>
+        <% if (startPage > 2) { %>
+          <li class="page-item disabled">
+            <span class="page-link">...</span>
+          </li>
+        <% } %>
+      <% } %>
+
+      <% for (let i = startPage; i <= endPage; i++) { %>
         <li class="page-item <%= i === pagination.page ? 'active' : '' %>">
           <a class="page-link" href="list?page=<%= i %>&perPage=<%= pagination.perPage %>"><%= i %></a>
         </li>
       <% } %>
-  
+
+      <% if (endPage < pagination.pages) { %>
+        <% if (endPage < pagination.pages - 1) { %>
+          <li class="page-item disabled">
+            <span class="page-link">...</span>
+          </li>
+        <% } %>
+        <li class="page-item">
+          <a class="page-link" href="list?page=<%= pagination.pages %>&perPage=<%= pagination.perPage %>"><%= pagination.pages %></a>
+        </li>
+      <% } %>
+
       <% if (pagination.page < pagination.pages) { %>
         <li class="page-item">
           <a class="page-link" href="list?page=<%= pagination.page + 1 %>&perPage=<%= pagination.perPage %>">Next</a>
