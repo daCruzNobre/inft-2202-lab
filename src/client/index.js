@@ -1,14 +1,20 @@
 import Navigo from 'navigo';
 
+// Import images so they are bundled
 import 'bootstrap';
 import './scss/styles.scss';
-import './img/old-8235289_1280.jpg'
-import './img/IMG_20240530_163516_290.jpg'
+import './img/PedroPic.jpg'
 import './img/bag-1455765_640.jpg'
-import './img/Black and White Modern Black Friday Sale Facebook Cover.png'
+import './img/Beige Brown Minimalist Professional Fashion Collection Facebook Cover.png'
 import './img/Black Gold Minimalist Black Friday Sale Facebook Cover.png'
 import "./img/Grey Black and White Bold Modern Men's Fashion Sale Facebook Cover.png"
-import "./img/Grey Black and White Bold Modern Men's Fashion Sale Facebook Cover.png"
+import "./img/safety-120.png"
+import "./img/variety-120.png"
+import "./img/easy.png"
+import "./img/art-1840481_640.jpg"
+import "./img/bag-17953_1280.jpg"
+import "./img/delivery-5585969_640.jpg"
+
 
 import HeaderComponent from './app/components/header/header.js'
 import FooterComponent from './app/components/footer/footer.js'
